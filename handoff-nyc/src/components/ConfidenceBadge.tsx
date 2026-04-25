@@ -1,17 +1,20 @@
 import { Confidence } from "@/lib/carePlanTypes";
 
+const styles: Record<Confidence, string> = {
+  High:
+    "bg-emerald-50 text-emerald-800 ring-emerald-600/15 dark:bg-emerald-950/40 dark:text-emerald-200",
+  Medium:
+    "bg-amber-50 text-amber-900 ring-amber-600/20 dark:bg-amber-950/35 dark:text-amber-100",
+  Low: "bg-red-50 text-red-800 ring-red-600/15 dark:bg-red-950/40 dark:text-red-100",
+};
+
 export function ConfidenceBadge({ confidence }: { confidence: Confidence }) {
-  if (confidence === "High") return null; // Don't clutter UI with high confidence
-  
-  const isMedium = confidence === "Medium";
-  
   return (
-    <span className={`inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset ${
-      isMedium 
-        ? "bg-blue-50 text-blue-700 ring-blue-600/20 dark:bg-blue-900/30 dark:text-blue-400" 
-        : "bg-red-50 text-red-700 ring-red-600/10 dark:bg-red-900/30 dark:text-red-400"
-    }`}>
-      {confidence} Confidence - Review Needed
+    <span
+      className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ring-1 ring-inset ${styles[confidence]}`}
+      aria-label={`Confidence: ${confidence}`}
+    >
+      {confidence} confidence
     </span>
   );
 }
